@@ -78,14 +78,14 @@ def add_password():
             else:
                 users[username].append(hashed_password.hexdigest())
                 # Enregistrer le dictionnaire mis à jour dans le fichier json
-                with open("users.json", "w") as file:
+                with open("src/users.json", "w") as file:
                     json.dump(users, file, separators=(',', ': '), indent=4)
 
                 messagebox.showinfo("Succès ", "Mot de passe ajouté avec succès pour l'utilisateur " + username + "!")
         # Si le nom d'utilisateur n'existe pas dans le dictionnaire, créez une nouvelle entrée.
         else:
             users[username] = [hashed_password.hexdigest()]
-            with open("users.json", "w") as file:
+            with open("src/users.json", "w") as file:
                 json.dump(users, file, separators=(',', ': '), indent=4)
             messagebox.showinfo("Succès ", "Mot de passe ajouté avec succès pour l'utilisateur " + username + "!")
 
@@ -138,38 +138,38 @@ def update_password_strength(event):
 
 
 try:
-    with open('users.json', 'r') as f:
+    with open('src/users.json', 'r') as f:
         users = json.load(f)
 except:
     users = {}
 
 """ --------------------------------GUI interface graphique ---------------------------------"""
-def Gui():
-    window = tk.Tk()
-    window.title("Password ")
-    window.configure(background="azure")
-    window.geometry("520x280")
-    window.minsize(280, 160)
-    window.iconbitmap("key_password_lock_800.ico")
 
-    label_title = tk.Label(window, text="Bienvenue ! ", font=("Courrier", 30), background="azure",
+window = tk.Tk()
+window.title("Password ")
+window.configure(background="azure")
+window.geometry("520x280")
+window.minsize(280, 160)
+window.iconbitmap("src/key_password_lock_800.ico")
+
+label_title = tk.Label(window, text="Bienvenue ! ", font=("Courrier", 30), background="azure",
                            fg='black')
-    label_title.pack(pady=10)
-    username_label = tk.Label(window, text="Entrez votre nom d'utilisateur: ")
-    username_label.pack(pady=10)
-    username_entry = tk.Entry(window)
-    username_entry.pack(pady=5)
-    password_label = tk.Label(window, text=" Entrer votre mot de passe :")
-    password_label.pack(pady=10)
-    password_entry = tk.Entry(window, show="*")
-    password_entry.pack(pady=5)
+label_title.pack(pady=10)
+username_label = tk.Label(window, text="Entrez votre nom d'utilisateur: ")
+username_label.pack(pady=10)
+username_entry = tk.Entry(window)
+username_entry.pack(pady=5)
+password_label = tk.Label(window, text=" Entrer votre mot de passe :")
+password_label.pack(pady=10)
+password_entry = tk.Entry(window, show="*")
+password_entry.pack(pady=5)
 
-    password_entry.bind("<KeyRelease>", update_password_strength)
-    password_strength = ttk.Progressbar(window, orient="horizontal", length=200, maximum=5, value=0, )
-    password_strength.pack(pady=5)
+password_entry.bind("<KeyRelease>", update_password_strength)
+password_strength = ttk.Progressbar(window, orient="horizontal", length=200, maximum=5, value=0, )
+password_strength.pack(pady=5)
 
-    add_button = tk.Button(window, text="AJOUTER", command=add_password, background="azure")
-    add_button.pack(pady=10)
+add_button = tk.Button(window, text="AJOUTER", command=add_password, background="azure")
+add_button.pack(pady=10)
 
-    window.mainloop()
-Gui()
+window.mainloop()
+
