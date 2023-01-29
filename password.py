@@ -110,24 +110,20 @@ def check_password_complexity(password):
     special = ''.join([x for x in password if not x.isalnum()])
 
     min_length = 8
-    # Initialiser une variable pour stocker le niveau de complexité du mot de passe
-    complexity_level = 0
+    
+    criteria = [
+        (len(password) >= min_length, 1),
+        (numbers, 1),
+        (lowercase, 1),
+        (uppercase, 1),
+        (special, 1)
+    ]
 
-    if len(password) >= min_length:
-        complexity_level += 1
+    complexity_level = 0 # Initialiser une variable pour stocker le niveau de complexité du mot de passe
+    for criterion, increment in criteria:
+        if criterion:
+            complexity_level += increment
 
-    if numbers:
-        complexity_level += 1
-
-    if lowercase:
-        complexity_level += 1
-
-    if uppercase:
-        complexity_level += 1
-
-    if special:
-        complexity_level += 1
-    # return le niveau de complexité du mot de passe
     return complexity_level
 
 
